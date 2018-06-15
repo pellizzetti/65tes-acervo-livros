@@ -6,6 +6,10 @@ class BookSchema extends Schema {
   up () {
     this.create('books', (table) => {
       table.increments()
+      table.string('isbn')
+      table.string('title')
+      table.date('publishing_date')
+      table.integer('author_id').references('id').inTable('author')
       table.timestamps()
     })
   }
