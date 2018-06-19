@@ -26,16 +26,21 @@ section {
   margin: auto;
 }
 
+.logo {
+  width: 125px;
+}
+
 .title {
   color: #292626;
   opacity: 0;
   animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 0.2s forwards;
+  font-size: 56px;
 }
 
 .subtitle {
   margin-top: 25px;
   color: #292626;
-  font-size: 17px;
+  font-size: 28px;
   text-align: center;
   letter-spacing: 0.5;
   opacity: 0;
@@ -49,6 +54,7 @@ section {
 
 .navigation-list li {
   display: inline;
+  font-size: 22px;
   list-style: none;
   margin: 0 20px;
 }
