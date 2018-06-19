@@ -9,7 +9,7 @@ class BookSchema extends Schema {
       table.string('isbn')
       table.string('title')
       table.date('publishing_date')
-      table.integer('author_id').references('id').inTable('author')
+      table.integer('author_id').references('id').inTable('authors')
       table.timestamps()
     })
   }
