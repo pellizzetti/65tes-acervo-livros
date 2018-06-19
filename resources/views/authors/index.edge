@@ -1,0 +1,22 @@
+@layout('main')
+
+@section('content')
+  <section class="container">
+    <h1>Autores</h1>
+    <a class="button add" href="/authors/add">Adicionar</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each(author in authors)
+          <tr>
+            <td><a href="/authors/{{author.id}}">{{ author.fullname }}</a></td>
+          </tr>
+        @endeach
+      </tbody>
+    </table>
+  </section>
+@endsection

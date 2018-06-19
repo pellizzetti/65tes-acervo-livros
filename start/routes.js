@@ -15,6 +15,12 @@
 
 const Route = use('Route')
 
-Route.get('/', ({ view }) => {
-  return view.render('home')
-})
+Route.on('/').render('home')
+
+Route.get('/authors', 'AuthorController.index')
+Route.get('/authors/add', 'AuthorController.create')
+Route.get('/authors/edit/:id', 'AuthorController.edit')
+Route.get('/authors/:id', 'AuthorController.show')
+Route.post('/authors', 'AuthorController.store')
+Route.put('/authors/:id', 'AuthorController.update')
+Route.delete('/authors/:id', 'AuthorController.destroy')
