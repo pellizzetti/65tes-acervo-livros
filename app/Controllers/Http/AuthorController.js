@@ -15,7 +15,13 @@ class AuthorController {
   }
 
   async create({ view }) {
-    return view.render('authors.add')
+    return view.render('authors.form', { editing: false })
+  }
+
+  async edit({ params, view }) {
+    const author = await Author.find(params.id)
+    
+    return view.render('authors.form', { editing: true, author })
   }
 
   async store({ request, response, session }) {
