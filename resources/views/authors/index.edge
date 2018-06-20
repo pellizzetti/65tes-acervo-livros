@@ -2,21 +2,23 @@
 
 @section('content')
   <section class="container">
-    <h1>Autores</h1>
-    <a class="button add" href="/authors/add">Adicionar</a>
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-        </tr>
-      </thead>
-      <tbody>
-        @each(author in authors)
+    <div class="card">
+      <h1>Autores</h1>
+      <a class="button float-right" href="/authors/add">Adicionar</a>
+      <table>
+        <thead>
           <tr>
-            <td><a href="/authors/{{author.id}}">{{ author.fullname }}</a></td>
+            <th>Nome</th>
           </tr>
-        @endeach
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          @each(author in authors)
+            <tr>
+              <td><a href="/authors/{{author.id}}">{{ author.fullname }}</a></td>
+            </tr>
+          @endeach
+        </tbody>
+      </table>
+    </div>
   </section>
 @endsection

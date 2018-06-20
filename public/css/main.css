@@ -26,6 +26,10 @@ section {
   margin: auto;
 }
 
+.container {
+  max-width: 152.0rem;
+}
+
 .logo {
   width: 125px;
 }
@@ -64,12 +68,20 @@ section {
   margin: 0 20px;
 }
 
-.add {
-  margin-left: auto;
+.button-black {
+  background-color: black;
+  border-color: black;
 }
 
-.back {
-  margin-right: auto;
+.card {
+  background-color: #fff;
+  border-radius: 4px;
+  color: #606c76;
+  line-height: 1.6;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  width: 80%;
+  padding: 1.5rem;
 }
 
 @keyframes slideUp {

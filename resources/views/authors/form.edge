@@ -2,19 +2,24 @@
 
 @section('content')
   <section class="container">
-    <a class="back" href="/authors">⬅ Voltar</a>
-    <hr>
-    <h2>Adicionar autor</h2>
-    <form method="POST" action="/authors">
-      <fieldset>
-        <label for="firstname">Nome</label>
-        <input type="text" name="firstname" value="{{ old('firstname', '') }}">
-        <label for="lastname">Sobrenome</label>
-        <input type="text" name="lastname" value="{{ old('lastname', '') }}">
-        <label for="birthday">Data de Nascimento</label>
-        <input type="text" placeholder="19/05/1962" name="birthday" value="{{ old('birthday', '') }}">
-        {{ elIf('<span>$self</span>', getErrorFor('birthday'), hasErrorFor('birthday')) }}
-        <input class="button-primary" type="submit" value="Adicionar">
-      </fieldset>
-    </form>
+    <div class="card">
+      <a class="float-left" href="/authors">⬅ Voltar</a>
+      <hr>
+      <h2>Adicionar autor</h2>
+      <form method="POST" action="/authors">
+        {{ csrfField() }}
+        <fieldset>
+          <label for="firstname">Nome</label>
+          <input type="text" name="firstname" value="{{ old('firstname', '') }}">
+          <label for="lastname">Sobrenome</label>
+          <input type="text" name="lastname" value="{{ old('lastname', '') }}">
+          <label for="birthday">Data de Nascimento</label>
+          <input type="text" placeholder="19/05/1962" name="birthday" value="{{ old('birthday', '') }}">
+          {{ elIf('<span>$self</span>', getErrorFor('birthday'), hasErrorFor('birthday')) }}
+          <hr>
+          <input class="button-primary float-right" type="submit" value="Adicionar">
+        </fieldset>
+      </form>
+    </div>
+  <section class="container">
 @endsection

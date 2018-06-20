@@ -1,0 +1,19 @@
+@layout('main')
+
+@section('content')
+  <section class="container">
+    <div class="card">
+      <a class="float-left" href="/authors">⬅ Voltar</a>
+      <hr>
+      <h2>{{ author.fullname }}</h2>
+      <h4>{{ author.birthday }}</h4>
+      <hr>
+
+      <form action="{{ '/authors/' + author.id + '?_method=DELETE' }}" method="POST" class="float-right">
+        {{ csrfField() }}
+        <a class="button a-right" href="/authors/edit/{{ author.id }}">Editar</a>
+        <button type="submit" class="button button-black a-right" onclick="return confirm('Tem certeza que deseja deletar esse registro?')">Deletar</button>
+      </form>
+    </div>
+  </section>
+@endsection
