@@ -10,12 +10,14 @@
         {{ csrfField() }}
         <fieldset>
           <label for="firstname">Nome</label>
+          {{ elIf('<span class="err">$self</span>', getErrorFor('firstname'), hasErrorFor('firstname')) }}
           <input type="text" name="firstname" value="{{ old('firstname', '') }}">
           <label for="lastname">Sobrenome</label>
+          {{ elIf('<span class="err">$self</span>', getErrorFor('lastname'), hasErrorFor('lastname')) }}
           <input type="text" name="lastname" value="{{ old('lastname', '') }}">
           <label for="birthday">Data de Nascimento</label>
+          {{ elIf('<span class="err">$self</span>', getErrorFor('birthday'), hasErrorFor('birthday')) }}
           <input type="text" placeholder="19/05/1962" name="birthday" value="{{ old('birthday', '') }}">
-          {{ elIf('<span>$self</span>', getErrorFor('birthday'), hasErrorFor('birthday')) }}
           <hr>
           <input class="button-primary float-right" type="submit" value="Adicionar">
         </fieldset>

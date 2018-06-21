@@ -84,6 +84,11 @@ section {
   padding: 1.5rem;
 }
 
+.err {
+  color: #d02323;
+  line-height: 0.5;
+}
+
 @keyframes slideUp {
   0% {
     transform: translateY(40px);
