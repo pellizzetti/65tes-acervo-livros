@@ -9,7 +9,7 @@ class Author extends Model {
 
   static formatDates (field, value) {
     if (field === 'birthday') {
-      // return value.format('YYYY-MM-DD')
+      return value.replace(/(\d\d)\/(\d\d)\/(\d{4})/, '$3-$2-$1')
     }
 
     return super.formatDates(field, value)
@@ -17,8 +17,7 @@ class Author extends Model {
 
   static castDates (field, value) {
     if (field === 'birthday') {
-      // return `${value.format('DD/MM/YYYY')} (${value.fromNow(true).replace(/ .*/,'')} anos)`
-      return value.format('DD/MM/YYYY')
+      return `${value.format('DD/MM/YYYY')} (${value.fromNow(true).replace(/ .*/,'')} anos)`
     }
 
     return super.formatDates(field, value)
