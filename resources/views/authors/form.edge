@@ -17,11 +17,46 @@
           <input type="text" name="lastname" value="{{ old('lastname', '') }}">
           <label for="birthday">Data de Nascimento</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('birthday'), hasErrorFor('birthday')) }}
-          <input type="text" placeholder="19/05/1962" name="birthday" value="{{ old('birthday', '') }}">
+          <input type="text" placeholder="1974/02/21" name="birthday" id="birthday" value="{{ old('birthday', '') }}">
           <hr>
           <input class="button-primary float-right" type="submit" value="Adicionar">
         </fieldset>
       </form>
     </div>
   <section class="container">
+  <script>
+    const elBirthday = document.getElementById('birthday')
+    const maxDate = new Date()
+    const maxYear = maxDate.getFullYear() - 6
+
+    maxDate.setFullYear(maxYear)
+
+    const maskOptions = {
+      mask: Date,
+      pattern: 'YYYY/MM/DD',
+      groups: {
+        YYYY: new IMask.MaskedPattern.Group.Range([1450, maxYear]),
+        MM: new IMask.MaskedPattern.Group.Range([1, 12]),
+        DD: new IMask.MaskedPattern.Group.Range([1, 31]),
+      },
+      format: (date) => {
+        const day = date.getDate()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+
+        if (day < 10) day = '0' + day
+        if (month < 10) month = '0' + month
+
+        return [year, month, day].join('/')
+      },
+      parse: (str) => {
+        const yearMonthDay = str.split('/')
+
+        return new Date(yearMonthDay[0], yearMonthDay[1] - 1, yearMonthDay[2])
+      },
+      lazy: false
+    }
+
+    new IMask(elBirthday, maskOptions)
+  </script>
 @endsection
