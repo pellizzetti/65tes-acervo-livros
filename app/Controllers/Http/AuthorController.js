@@ -40,12 +40,21 @@ class AuthorController {
     const rules = {
       firstname: 'required|min:3|max:25',
       lastname: 'required|min:3|max:25',
-      birthday: ['required', 'regex:/(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/(19|20)\d{2,2}/']
+      birthday: 'required|dateFormat:YYYY/MM/DD'
     }
+
+
     const messages = {
-      'firstname.required': 'Please choose a unique username for your account',
-      'email.required': 'Enter a valid email address.'
+      'firstname.required': 'O nome é obrigatório',
+      'lastname.required': 'O sobrenome é obrigatório',
+      'birthday.required': 'A data de nascimento é obrigatória',
+      'firstname.min': 'O nome é deve ter no mínimo 3 caracteres',
+      'lastname.min': 'O sobrenome é deve ter no mínimo 3 caracteres',
+      'firstname.max': 'O nome é deve ter no máximo 25 caracteres',
+      'lastname.max': 'O sobrenome é deve ter no máximo 25 caracteres',
+      'birthday.dateFormat': 'Data de nascimento fora do formato esperado. Ex.: 1974/02/21'
     }
+
     const authorData = request.only(['firstname', 'lastname', 'birthday'])
 
     const validation = await validateAll(authorData, rules, messages)
