@@ -46,7 +46,9 @@ class AuthorController {
       'firstname.required': 'Please choose a unique username for your account',
       'email.required': 'Enter a valid email address.'
     }
-    const validation = await validateAll(request.all(), rules)
+    const authorData = request.only(['firstname', 'lastname', 'birthday'])
+
+    const validation = await validateAll(authorData, rules, messages)
 
     if (validation.fails()) {
       session
@@ -56,15 +58,7 @@ class AuthorController {
       return response.redirect('back')
     }
 
-    const author = new Author()
-
-    author.firstname = request.input('firstname')
-    author.lastname = request.input('lastname')
-    author.birthday = request.input('birthday')
-
-    console.log('aaa', author.birthday)
-
-    await author.save()
+    await Author.create(authorData)
 
     session.flash({
       notification: 'Autor adicionado com sucesso!'
