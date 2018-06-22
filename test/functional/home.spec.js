@@ -1,8 +1,10 @@
 'use strict'
 
-const { test } = use('Test/Suite')('Home Page')
+const { test, trait } = use('Test/Suite')('Home')
+
+trait('Test/Browser')
 
 test('Visit home page', async ({ browser }) => {
   const page = await browser.visit('/')
-  await page.assertHas('Adonis')
+  await page.assertHas('Bookist')
 })
