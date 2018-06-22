@@ -6,7 +6,7 @@
       <a class="float-left" href="/authors">⬅ Voltar</a>
       <hr>
       <h2>{{ author.fullname }}</h2>
-      <h4>{{ author.birthday }}</h4>
+      <h4>{{ author.birthday }} ({{ author.yearsold }})</h4>
       <hr>
 
       <form action="{{ '/authors/' + author.id + '?_method=DELETE' }}" method="POST" class="float-right">
