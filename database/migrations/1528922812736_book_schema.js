@@ -8,8 +8,9 @@ class BookSchema extends Schema {
       table.increments()
       table.string('isbn')
       table.string('title')
-      table.date('publishing_date')
+      table.integer('rating')
       table.integer('author_id').references('id').inTable('authors')
+      table.integer('publisher_id').references('id').inTable('publishers')
       table.timestamps()
     })
   }

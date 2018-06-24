@@ -6,6 +6,7 @@ class PublisherSchema extends Schema {
   up () {
     this.create('publishers', (table) => {
       table.increments()
+      table.string('name')
       table.timestamps()
     })
   }
