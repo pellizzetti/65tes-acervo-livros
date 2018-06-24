@@ -11,21 +11,21 @@
         <fieldset>
           <label for="firstname">Nome</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('firstname'), hasErrorFor('firstname')) }}
-          <input type="text" name="firstname" value="{{ old('firstname', '') }}">
+          <input type="text" name="firstname" @if(editing) value="{{ author.firstname }}" @else value="{{ old('firstname', '') }}" @endif>
           <label for="lastname">Sobrenome</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('lastname'), hasErrorFor('lastname')) }}
-          <input type="text" name="lastname" value="{{ old('lastname', '') }}">
+          <input type="text" name="lastname" @if(editing) value="{{ author.lastname }}" @else value="{{ old('lastname', '') }}" @endif>
           <label for="birthday">Data de Nascimento</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('birthday'), hasErrorFor('birthday')) }}
-          <input type="text" placeholder="1974/02/21" name="birthday" id="birthday" value="{{ old('birthday', '') }}">
+          <input type="text" placeholder="1974/02/21" name="birthday" id="birthday" @if(editing) value="{{ author.birthday }}" @else value="{{ old('birthday', '') }}" @endif>
           <hr>
-          <input class="button-primary float-right" type="submit" value="Adicionar">
+          <input class="button-primary float-right" type="submit" onclick="this.form.action = location.pathname + '?_method=put'" value="Adicionar">
         </fieldset>
       </form>
     </div>
   <section class="container">
   <script>
-    const elBirthday = document.getElementById('birthday')
+    /*const elBirthday = document.getElementById('birthday')
     const maxDate = new Date()
     const maxYear = maxDate.getFullYear() - 6
 
@@ -57,6 +57,6 @@
       lazy: false
     }
 
-    new IMask(elBirthday, maskOptions)
+    new IMask(elBirthday, maskOptions)*/
   </script>
 @endsection
