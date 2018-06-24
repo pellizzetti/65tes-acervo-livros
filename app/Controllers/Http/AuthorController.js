@@ -32,7 +32,8 @@ class AuthorController {
     const author = await Author.find(params.id)
 
     return view.render('authors.form', {
-      editing: true, author
+      editing: true,
+      author: author.toJSON()
     })
   }
 
