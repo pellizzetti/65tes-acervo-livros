@@ -37,3 +37,15 @@ Route.post('/books', 'BookController.store')
 
 Route.put('/books/edit/:id', 'BookController.update')
 
+Route.delete('/books/:id', 'BookController.destroy')
+
+Route.get('/publishers', 'PublisherController.index')
+Route.get('/publishers/add', 'PublisherController.create')
+Route.get('/publishers/edit/:id', 'PublisherController.edit')
+Route.get('/publishers/:id', 'PublisherController.show')
+
+Route.post('/publishers', 'PublisherController.store')
+
+Route.put('/publishers/edit/:id', 'PublisherController.update')
+
+Route.delete('/publishers/:id', 'PublisherController.destroy')
