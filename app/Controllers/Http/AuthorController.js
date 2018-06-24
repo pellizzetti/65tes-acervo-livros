@@ -5,7 +5,6 @@ const Author = use('App/Models/Author')
 const { validateAll } = use('Validator')
 
 class AuthorController {
-
   async index({ view }) {
     const authors = await Author.all()
 

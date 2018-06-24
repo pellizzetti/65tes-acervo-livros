@@ -45,7 +45,7 @@ class PublisherController {
       'name.max': 'O nome é deve ter no máximo 25 caracteres',
     }
 
-    const publisherData = request.only(['name',])
+    const publisherData = request.only(['name'])
 
     const validation = await validateAll(publisherData, rules, messages)
 

@@ -1,0 +1,21 @@
+@layout('main')
+
+@section('content')
+  <section class="container">
+    <div class="card">
+      <a class="float-left" href="/publishers">⬅ Voltar</a>
+      <hr>
+      <h2>Adicionar editora</h2>
+      <form method="POST" action="/publishers">
+        {{ csrfField() }}
+        <fieldset>
+          <label for="name">Nome</label>
+          {{ elIf('<span class="err">$self</span>', getErrorFor('name'), hasErrorFor('name')) }}
+          <input type="text" name="name" @if(editing) value="{{ publisher.name }}" @else value="{{ old('name', '') }}" @endif>
+          <hr>
+          <input class="button-primary float-right" type="submit" onclick="this.form.action = location.pathname + '?_method=put'" value="Adicionar">
+        </fieldset>
+      </form>
+    </div>
+  <section class="container">
+@endsection
