@@ -1,12 +1,13 @@
 {
-  "name": "adonis-slim-app",
+  "name": "65tes-acervo-livros",
   "version": "4.1.0",
   "adonis-version": "4.1.0",
-  "description": "Smallest possible application for adonisjs",
-  "main": "index.js",
+  "description": "Simples CRUD de editoras/autores/livros",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node ace test"
+    "test": "node ace test",
+    "test-cov": "nyc npm test"
   },
   "keywords": [
     "adonisjs",
