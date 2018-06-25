@@ -4,7 +4,6 @@ const Author = use('App/Models/Author')
 const { test, trait } = use('Test/Suite')('Integração -> Autor')
 
 trait('Test/Browser')
-trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
 test('Deve acessar lista de autores', async ({ browser }) => {
