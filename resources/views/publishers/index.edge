@@ -1,0 +1,24 @@
+@layout('main')
+
+@section('content')
+  <section class="container">
+    <div class="card">
+      <h1>Editoras</h1>
+      <a class="button float-right" href="/publishers/add">Adicionar</a>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+          </tr>
+        </thead>
+        <tbody>
+          @each(publisher in publishers)
+            <tr>
+              <td><a href="/publishers/{{publisher.id}}">{{ publisher.name }}</a></td>
+            </tr>
+          @endeach
+        </tbody>
+      </table>
+    </div>
+  </section>
+@endsection

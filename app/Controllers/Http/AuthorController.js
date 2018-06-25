@@ -5,7 +5,6 @@ const Author = use('App/Models/Author')
 const { validateAll } = use('Validator')
 
 class AuthorController {
-
   async index({ view }) {
     const authors = await Author.all()
 
@@ -32,7 +31,8 @@ class AuthorController {
     const author = await Author.find(params.id)
 
     return view.render('authors.form', {
-      editing: true, author
+      editing: true,
+      author: author.toJSON()
     })
   }
 
