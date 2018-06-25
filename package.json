@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node ace test",
+    "test": "node ace test -t 14000",
     "test-cov": "nyc npm test"
   },
   "keywords": [
