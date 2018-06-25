@@ -36,10 +36,6 @@ class Author extends Model {
   getYearsold ({ birthday }) {
     return `${moment(birthday, 'YYYY/MM/DD').fromNow(true).replace(/ .*/,'')} anos`
   }
-
-  books () {
-    return this.hasMany('App/Models/Book')
-  }
 }
 
 module.exports = Author
