@@ -1,8 +1,11 @@
 {
   "reporter": [
     "html",
-    "lcov",
-    "text-summary"
+    "lcov"
   ],
-  "report-dir": "./.coverage"
+  "report-dir": "./.coverage",
+  "exclude": [
+    "vowfile.js",
+    "test/**/*.spec.js"
+  ]
 }
