@@ -14,11 +14,19 @@ class PublisherController {
   }
 
   async show({ params, view }) {
-    const publisher = await Publisher.find(params.id)
+    try {
+      const publisher = await Publisher.findOrFail(params.id)
 
-    return view.render('publishers.detail', {
-      publisher: publisher.toJSON()
-    })
+      return view.render('publishers.detail', {
+        publisher: publisher.toJSON()
+      })
+    } catch (err) {
+      return view.render('error.index', {
+        message: 'Essa editora não existe! :(',
+        back: 'publishers',
+        err
+      })
+    }
   }
 
   async create({ view }) {
@@ -28,12 +36,20 @@ class PublisherController {
   }
 
   async edit({ params, view }) {
-    const publisher = await Publisher.find(params.id)
+    try {
+      const publisher = await Publisher.findOrFail(params.id)
 
-    return view.render('publishers.form', {
-      editing: true,
-      publisher: publisher.toJSON()
-    })
+      return view.render('publishers.form', {
+        editing: true,
+        publisher: publisher.toJSON()
+      })
+    } catch (err) {
+      return view.render('error.index', {
+        message: 'Esse autor não existe! :(',
+        back: 'publishers',
+        err
+      })
+    }
   }
 
   async store({ request, response, session }) {
@@ -45,7 +61,7 @@ class PublisherController {
       'name.max': 'O nome é deve ter no máximo 25 caracteres',
     }
 
-    const publisherData = request.only(['name'])
+    const publisherData = request.only(['id', 'name'])
 
     const validation = await validateAll(publisherData, rules, messages)
 
@@ -57,11 +73,16 @@ class PublisherController {
       return response.redirect('back')
     }
 
-    await Publisher.create(publisherData)
+    let publisher = null
+    if (authorData.id !== 'null') {
+      publisher = await Publisher.find(publisherData.id)
+    } else {
+      publisher = new Publisher()
+    }
 
-    session.flash({
-      notification: 'Editora adicionado com sucesso!'
-    })
+    publisher.name = publisherData.name
+
+    await publisher.save()
 
     return response.redirect('/publishers')
   }
