@@ -6,9 +6,11 @@
       <a class="float-left" href="/books">⬅ Voltar</a>
       <hr>
       <h2>{{ book.title }}</h2>
+      <h4>Autor: {{ author.fullname }}</h4>
+      <h4>Editora: {{ publisher.name }}</h4>
       <hr>
 
-      <form action="{{ '/publishers/delete/' + publisher.id + '?_method=DELETE' }}" method="POST" class="float-right">
+      <form action="{{ '/books/delete/' + book.id + '?_method=DELETE' }}" method="POST" class="float-right">
         {{ csrfField() }}
         <a class="button a-right" href="/books/edit/{{ book.id }}">Editar</a>
         <button type="submit" class="button button-black a-right" onclick="return confirm('Tem certeza que deseja deletar esse registro?')">Deletar</button>

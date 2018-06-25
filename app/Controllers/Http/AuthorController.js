@@ -63,10 +63,10 @@ class AuthorController {
       'firstname.required': 'O nome é obrigatório',
       'lastname.required': 'O sobrenome é obrigatório',
       'birthday.required': 'A data de nascimento é obrigatória',
-      'firstname.min': 'O nome é deve ter no mínimo 3 caracteres',
-      'lastname.min': 'O sobrenome é deve ter no mínimo 3 caracteres',
-      'firstname.max': 'O nome é deve ter no máximo 25 caracteres',
-      'lastname.max': 'O sobrenome é deve ter no máximo 25 caracteres',
+      'firstname.min': 'O nome deve ter no mínimo 3 caracteres',
+      'lastname.min': 'O sobrenome deve ter no mínimo 3 caracteres',
+      'firstname.max': 'O nome deve ter no máximo 25 caracteres',
+      'lastname.max': 'O sobrenome deve ter no máximo 25 caracteres',
       'birthday.dateFormat': 'Data de nascimento fora do formato esperado. Ex.: 1974/02/21'
     }
 

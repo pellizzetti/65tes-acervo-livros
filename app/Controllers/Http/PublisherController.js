@@ -57,8 +57,8 @@ class PublisherController {
 
     const messages = {
       'name.required': 'O nome é obrigatório',
-      'name.min': 'O nome é deve ter no mínimo 3 caracteres',
-      'name.max': 'O nome é deve ter no máximo 25 caracteres',
+      'name.min': 'O nome deve ter no mínimo 3 caracteres',
+      'name.max': 'O nome deve ter no máximo 25 caracteres',
     }
 
     const publisherData = request.only(['id', 'name'])

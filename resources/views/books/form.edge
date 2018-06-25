@@ -3,7 +3,7 @@
 @section('content')
   <section class="container">
     <div class="card">
-      <a class="float-left" href="/authors">⬅ Voltar</a>
+      <a class="float-left" href="/books">⬅ Voltar</a>
       <hr>
       @if(editing)
         <h2>Editar livros</h2>
@@ -11,22 +11,66 @@
         <h2>Adicionar livros</h2>
       @endif
 
-      <form method="POST" action="/authors">
+      <form method="POST" action="/books">
         {{ csrfField() }}
         <fieldset>
           @if(editing)
-            <input type="hidden" name="id" value="{{ author.id }}">
+            <input type="hidden" name="id" value="{{ book.id }}">
           @else
             <input type="hidden" name="id" value="null">
           @endif
 
-          <label for="firstname">Título</label>
+          <label for="title">Título</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('title'), hasErrorFor('title')) }}
           @if(editing)
-            <input type="text" name="title" value="{{ author.title }}">
+            <input type="text" name="title" value="{{ book.title }}">
           @else
             <input type="text" name="title" value="{{ old('title', '') }}">
           @endif
+
+          <label for="author_id">Autor</label>
+          {{ elIf('<span class="err">$self</span>', getErrorFor('author_id'), hasErrorFor('author_id')) }}
+          <select name="author_id">
+              <option value="">Selecione um autor</option>
+              @each(author in authors)
+
+                @if(editing)
+                  @if(author.id == book.author_id)
+                    <option value="{{ author.id }}" selected="selected">{{ author.fullname }}</option>
+                  @else
+                    <option value="{{ author.id }}">{{ author.fullname }}</option>
+                  @endif
+                @else
+                  @if(author.id == old('author_id'))
+                    <option value="{{ author.id }}" selected="selected">{{ author.fullname }}</option>
+                  @else
+                    <option value="{{ author.id }}">{{ author.fullname }}</option>
+                  @endif
+                @endif
+              @endeach
+          </select>
+
+          <label for="publisher_id">Editora</label>
+          {{ elIf('<span class="err">$self</span>', getErrorFor('publisher_id'), hasErrorFor('publisher_id')) }}
+          <select name="publisher_id">
+              <option value="">Selecione uma editora</option>
+              @each(publisher in publishers)
+
+                @if(editing)
+                  @if(publisher.id == book.publisher_id)
+                    <option value="{{ publisher.id }}" selected="selected">{{ publisher.name }}</option>
+                  @else
+                    <option value="{{ publisher.id }}">{{ publisher.name }}</option>
+                  @endif
+                @else
+                  @if(publisher.id == old('publisher_id'))
+                    <option value="{{ publisher.id }}" selected="selected">{{ publisher.name }}</option>
+                  @else
+                    <option value="{{ publisher.id }}">{{ publisher.name }}</option>
+                  @endif
+                @endif
+              @endeach
+          </select>
 
           <hr>
 
