@@ -12,7 +12,6 @@ class Author extends Model {
   static formatDates (field, value) {
     if (field === 'birthday') {
       return moment(value, 'YYYY/MM/DD').format('YYYY-MM-DD')
-      return value.replace(/(\d{4})\/(\d\d)\/(\d\d)/, '$3-$2-$1')
     }
 
     return super.formatDates(field, value)
