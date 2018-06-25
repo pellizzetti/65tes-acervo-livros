@@ -12,11 +12,17 @@
           </tr>
         </thead>
         <tbody>
-          @each(author in authors)
+          @if(authors.length > 0)
+            @each(author in authors)
+              <tr>
+                <td><a href="/authors/{{author.id}}">{{ author.fullname }}</a></td>
+              </tr>
+            @endeach
+          @else
             <tr>
-              <td><a href="/authors/{{author.id}}">{{ author.fullname }}</a></td>
+              <td align="center">Nenhum autor cadastrado...</td>
             </tr>
-          @endeach
+          @endif
         </tbody>
       </table>
     </div>
