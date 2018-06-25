@@ -89,6 +89,13 @@ class AuthorController {
 
     return response.redirect('/authors')
   }
+
+  async destroy({params, session, response}) {
+    const author = await Author.find(params.id)
+    await author.delete()
+
+    return response.redirect('/authors')
+  }
 }
 
 module.exports = AuthorController
