@@ -14,11 +14,19 @@ class AuthorController {
   }
 
   async show({ params, view }) {
-    const author = await Author.find(params.id)
+    try {
+      const author = await Author.findOrFail(params.id)
 
-    return view.render('authors.detail', {
-      author: author.toJSON()
-    })
+      return view.render('authors.detail', {
+        author: author.toJSON()
+      })
+    } catch (err) {
+      return view.render('error.index', {
+        message: 'Esse autor não existe! :(',
+        back: 'authors',
+        err
+      })
+    }
   }
 
   async create({ view }) {

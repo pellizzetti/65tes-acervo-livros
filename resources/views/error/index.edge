@@ -1,0 +1,12 @@
+﻿@layout('main')
+
+@section('content')
+  <section class="container">
+    <div class="card">
+      <a class="float-left" href="/{{ back }}">⬅ Voltar</a>
+      <hr>
+      <h2>Erro: {{ message }}</h1>
+      <pre><code>{{ err }}</code></pre>
+    </div>
+  </section>
+@endsection
