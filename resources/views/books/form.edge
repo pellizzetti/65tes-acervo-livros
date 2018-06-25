@@ -1,0 +1,43 @@
+@layout('main')
+
+@section('content')
+  <section class="container">
+    <div class="card">
+      <a class="float-left" href="/authors">⬅ Voltar</a>
+      <hr>
+      @if(editing)
+        <h2>Editar autor</h2>
+      @else
+        <h2>Adicionar autor</h2>
+      @endif
+
+      <form method="POST" action="/authors">
+        {{ csrfField() }}
+        <fieldset>
+          @if(editing)
+            <input type="hidden" name="id" value="{{ author.id }}">
+          @else
+            <input type="hidden" name="id" value="null">
+          @endif
+
+          <label for="firstname">Título</label>
+          {{ elIf('<span class="err">$self</span>', getErrorFor('title'), hasErrorFor('title')) }}
+          @if(editing)
+            <input type="text" name="title" value="{{ author.title }}">
+          @else
+            <input type="text" name="title" value="{{ old('title', '') }}">
+          @endif
+
+          <hr>
+
+          @if(editing)
+            <input class="button-primary float-right" type="submit" onclick="this.form.action = location.pathname + '?_method=put'" value="Editar">
+          @else
+            <input class="button-primary float-right" type="submit" value="Adicionar">
+          @endif
+
+        </fieldset>
+      </form>
+    </div>
+  <section class="container">
+@endsection

@@ -12,11 +12,17 @@
           </tr>
         </thead>
         <tbody>
-          @each(publisher in publishers)
+          @if(publishers.length > 0)
+            @each(publisher in publishers)
+              <tr>
+                <td><a href="/publishers/{{publisher.id}}">{{ publisher.name }}</a></td>
+              </tr>
+            @endeach
+          @else
             <tr>
-              <td><a href="/publishers/{{publisher.id}}">{{ publisher.name }}</a></td>
+              <td align="center">Nenhuma editora cadastrada...</td>
             </tr>
-          @endeach
+          @endif
         </tbody>
       </table>
     </div>

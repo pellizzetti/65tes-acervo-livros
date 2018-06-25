@@ -5,10 +5,21 @@
     <div class="card">
       <a class="float-left" href="/publishers">⬅ Voltar</a>
       <hr>
-      <h2>Adicionar editora</h2>
+      @if(editing)
+        <h2>Editar editora</h2>
+      @else
+        <h2>Adicionar editora</h2>
+      @endif
+
       <form method="POST" action="/publishers">
         {{ csrfField() }}
         <fieldset>
+          @if(editing)
+            <input type="hidden" name="id" value="{{ publisher.id }}">
+          @else
+            <input type="hidden" name="id" value="null">
+          @endif
+
           <label for="name">Nome</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('name'), hasErrorFor('name')) }}
           @if(editing)
@@ -18,7 +29,7 @@
           @endif
 
           <hr>
-          
+
           @if(editing)
             <input class="button-primary float-right" type="submit" onclick="this.form.action = location.pathname + '?_method=put'" value="Editar">
           @else

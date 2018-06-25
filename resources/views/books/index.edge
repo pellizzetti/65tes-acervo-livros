@@ -1,0 +1,30 @@
+@layout('main')
+
+@section('content')
+  <section class="container">
+    <div class="card">
+      <h1>Livros</h1>
+      <a class="button float-right" href="/publishers/add">Adicionar</a>
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if(books.length > 0)
+            @each(book in books)
+              <tr>
+                <td><a href="/publishers/{{publisher.id}}">{{ book.title }}</a></td>
+              </tr>
+            @endeach
+          @else
+            <tr>
+              <td align="center">Nenhuma editora cadastrada...</td>
+            </tr>
+          @endif
+        </tbody>
+      </table>
+    </div>
+  </section>
+@endsection
