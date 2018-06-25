@@ -76,7 +76,15 @@ class AuthorController {
 
     let author = null
     if (authorData.id !== 'null') {
-      author = await Author.find(authorData.id)
+      try {
+        author = await Author.findOrFail(authorData.id)
+      } catch (err) {
+        return view.render('error.index', {
+          message: 'Esse autor não existe! :(',
+          back: 'authors',
+          err
+        })
+      }
     } else {
       author = new Author()
     }
@@ -91,10 +99,19 @@ class AuthorController {
   }
 
   async destroy({params, session, response}) {
-    const author = await Author.find(params.id)
-    await author.delete()
+    try {
+      const author = await Author.findOrFail(params.id)
 
-    return response.redirect('/authors')
+      await author.delete()
+
+      return response.redirect('/authors')
+    } catch (err) {
+      return view.render('error.index', {
+        message: 'Esse autor não existe! :(',
+        back: 'authors',
+        err
+      })
+    }
   }
 }
 
