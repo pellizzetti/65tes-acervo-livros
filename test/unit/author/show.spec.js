@@ -1,7 +1,7 @@
 'use strict'
 
 const Author = use('App/Models/Author')
-const { test, trait } = use('Test/Suite')('Autor -> detalhar')
+const { test, trait } = use('Test/Suite')('Unitário -> Autor.detalhar')
 
 trait('Test/ApiClient')
 trait('DatabaseTransactions')

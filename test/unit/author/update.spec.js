@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 const Author = use('App/Models/Author')
-const { test, trait } = use('Test/Suite')('Autor -> editar')
+const { test, trait } = use('Test/Suite')('Unitário -> Autor.editar')
 
 trait('Test/Browser')
 trait('Test/ApiClient')
@@ -238,5 +238,5 @@ test('Deve editar os dados de autor', async ({ browser }) => {
 
   await page.assertPath('/authors')
 
-  await page.assertHas(`${author.firstname} ${author.lastname}`)
+  await page.assertHas('Guilherme Pellizzetti')
 })

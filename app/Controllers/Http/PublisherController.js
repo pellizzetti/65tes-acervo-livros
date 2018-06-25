@@ -45,7 +45,7 @@ class PublisherController {
       })
     } catch (err) {
       return view.render('error.index', {
-        message: 'Esse autor não existe! :(',
+        message: 'Essa editora não existe! :(',
         back: 'publishers',
         err
       })
@@ -85,6 +85,22 @@ class PublisherController {
     await publisher.save()
 
     return response.redirect('/publishers')
+  }
+
+  async destroy({ response, params, view }) {
+    try {
+      const publisher = await Publisher.findOrFail(params.id)
+
+      await publisher.delete()
+
+      return response.redirect('/publishers')
+    } catch (err) {
+      return view.render('error.index', {
+        message: 'Essa editora não existe! :(',
+        back: 'publishers',
+        err
+      })
+    }
   }
 }
 

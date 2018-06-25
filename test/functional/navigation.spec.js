@@ -1,6 +1,6 @@
 'use strict'
 
-const { test, trait } = use('Test/Suite')('Navegação')
+const { test, trait } = use('Test/Suite')('Sistema -> Navegação')
 
 trait('Test/Browser')
 
