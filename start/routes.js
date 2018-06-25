@@ -26,7 +26,7 @@ Route.post('/authors', 'AuthorController.store')
 
 Route.put('/authors/edit/:id', 'AuthorController.store')
 
-Route.delete('/authors/:id', 'AuthorController.destroy')
+Route.delete('/authors/delete/:id', 'AuthorController.destroy')
 
 Route.get('/books', 'BookController.index')
 Route.get('/books/add', 'BookController.create')
@@ -35,9 +35,9 @@ Route.get('/books/:id', 'BookController.show')
 
 Route.post('/books', 'BookController.store')
 
-Route.put('/books/edit/:id', 'BookController.update')
+Route.put('/books/edit/:id', 'BookController.store')
 
-Route.delete('/books/:id', 'BookController.destroy')
+Route.delete('/books/delete/:id', 'BookController.destroy')
 
 Route.get('/publishers', 'PublisherController.index')
 Route.get('/publishers/add', 'PublisherController.create')
@@ -46,6 +46,6 @@ Route.get('/publishers/:id', 'PublisherController.show')
 
 Route.post('/publishers', 'PublisherController.store')
 
-Route.put('/publishers/edit/:id', 'PublisherController.update')
+Route.put('/publishers/edit/:id', 'PublisherController.store')
 
-Route.delete('/publishers/:id', 'PublisherController.destroy')
+Route.delete('/publishers/delete/:id', 'PublisherController.destroy')

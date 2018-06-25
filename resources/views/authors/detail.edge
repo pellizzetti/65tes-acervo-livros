@@ -9,7 +9,7 @@
       <h4>{{ author.birthday }} ({{ author.yearsold }})</h4>
       <hr>
 
-      <form action="{{ '/authors/' + author.id + '?_method=DELETE' }}" method="POST" class="float-right">
+      <form action="{{ '/authors/delete/' + author.id + '?_method=DELETE' }}" method="POST" class="float-right">
         {{ csrfField() }}
         <a class="button a-right" href="/authors/edit/{{ author.id }}">Editar</a>
         <button type="submit" class="button button-black a-right" onclick="return confirm('Tem certeza que deseja deletar esse registro?')">Deletar</button>
