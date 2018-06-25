@@ -51,7 +51,6 @@ class AuthorController {
       birthday: 'required|dateFormat:YYYY/MM/DD'
     }
 
-
     const messages = {
       'firstname.required': 'O nome é obrigatório',
       'lastname.required': 'O sobrenome é obrigatório',
@@ -63,7 +62,7 @@ class AuthorController {
       'birthday.dateFormat': 'Data de nascimento fora do formato esperado. Ex.: 1974/02/21'
     }
 
-    const authorData = request.only(['firstname', 'lastname', 'birthday'])
+    const authorData = request.only(['id', 'firstname', 'lastname', 'birthday'])
 
     const validation = await validateAll(authorData, rules, messages)
 
@@ -75,11 +74,18 @@ class AuthorController {
       return response.redirect('back')
     }
 
-    await Author.create(authorData)
+    let author = null
+    if (authorData.id !== 'null') {
+      author = await Author.find(authorData.id)
+    } else {
+      author = new Author()
+    }
 
-    session.flash({
-      notification: 'Autor adicionado com sucesso!'
-    })
+    author.firstname = authorData.firstname
+    author.lastname = authorData.lastname
+    author.birthday = authorData.birthday
+
+    await author.save()
 
     return response.redirect('/authors')
   }

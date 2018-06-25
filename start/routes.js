@@ -24,7 +24,7 @@ Route.get('/authors/:id', 'AuthorController.show')
 
 Route.post('/authors', 'AuthorController.store')
 
-Route.put('/authors/edit/:id', 'AuthorController.update')
+Route.put('/authors/edit/:id', 'AuthorController.store')
 
 Route.delete('/authors/:id', 'AuthorController.destroy')
 

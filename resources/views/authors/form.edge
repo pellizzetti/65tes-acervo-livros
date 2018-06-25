@@ -9,6 +9,12 @@
       <form method="POST" action="/authors">
         {{ csrfField() }}
         <fieldset>
+          @if(editing)
+            <input type="hidden" name="id" value="{{ author.id }}">
+          @else
+            <input type="hidden" name="id" value="null">
+          @endif
+
           <label for="firstname">Nome</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('firstname'), hasErrorFor('firstname')) }}
           @if(editing)
@@ -24,10 +30,15 @@
           @else
             <input type="text" name="lastname" value="{{ old('lastname', '') }}">
           @endif
-          
+
           <label for="birthday">Data de Nascimento</label>
           {{ elIf('<span class="err">$self</span>', getErrorFor('birthday'), hasErrorFor('birthday')) }}
-          
+          @if(editing)
+            <input type="text" name="birthday" id="birthday" value="{{ author.birthday }}">
+          @else
+            <input type="text" name="birthday" id="birthday" value="{{ old('birthday', '') }}">
+          @endif
+
           <hr>
 
           @if(editing)
@@ -35,7 +46,7 @@
           @else
             <input class="button-primary float-right" type="submit" value="Adicionar">
           @endif
-          
+
         </fieldset>
       </form>
     </div>
@@ -56,9 +67,9 @@
         DD: new IMask.MaskedPattern.Group.Range([1, 31]),
       },
       format: (date) => {
-        const day = date.getDate()
-        const month = date.getMonth() + 1
-        const year = date.getFullYear()
+        let day = date.getDate()
+        let month = date.getMonth() + 1
+        let year = date.getFullYear()
 
         if (day < 10) day = '0' + day
         if (month < 10) month = '0' + month
