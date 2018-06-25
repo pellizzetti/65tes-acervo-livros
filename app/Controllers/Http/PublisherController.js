@@ -74,7 +74,7 @@ class PublisherController {
     }
 
     let publisher = null
-    if (authorData.id !== 'null') {
+    if (publisherData.id !== 'null') {
       publisher = await Publisher.find(publisherData.id)
     } else {
       publisher = new Publisher()
