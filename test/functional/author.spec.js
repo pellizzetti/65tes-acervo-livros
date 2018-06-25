@@ -7,21 +7,21 @@ trait('Test/Browser')
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
-test('Deve acessar lista de autores', async ({ assert, browser }) => {
+test('Deve acessar lista de autores', async ({ browser }) => {
   const page = await browser.visit('/authors')
 
   await page.assertPath('/authors')
   await page.assertHas('Autores')
 })
 
-test('Deve acessar cadastro de autores', async ({ assert, browser }) => {
+test('Deve acessar cadastro de autores', async ({ browser }) => {
   const page = await browser.visit('/authors/add')
 
   await page.assertPath('/authors/add')
   await page.assertHas('Adicionar autor')
 })
 
-test('Deve acessar edição de autores', async ({ assert, browser }) => {
+test('Deve acessar edição de autores', async ({ browser }) => {
   const author = await Author.create({
     firstname: 'Guilherme',
     lastname: 'Pellizzetti',
