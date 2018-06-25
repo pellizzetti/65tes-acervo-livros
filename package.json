@@ -33,6 +33,7 @@
     "App": "./app"
   },
   "devDependencies": {
+    "nyc": "^12.0.2",
     "pg": "^7.4.3"
   }
 }
