@@ -36,12 +36,20 @@ class AuthorController {
   }
 
   async edit({ params, view }) {
-    const author = await Author.find(params.id)
+    try {
+      const author = await Author.findOrFail(params.id)
 
-    return view.render('authors.form', {
-      editing: true,
-      author: author.toJSON()
-    })
+      return view.render('authors.form', {
+        editing: true,
+        author: author.toJSON()
+      })
+    } catch (err) {
+      return view.render('error.index', {
+        message: 'Esse autor não existe! :(',
+        back: 'authors',
+        err
+      })
+    }
   }
 
   async store({ request, response, session }) {
@@ -76,15 +84,7 @@ class AuthorController {
 
     let author = null
     if (authorData.id !== 'null') {
-      try {
-        author = await Author.findOrFail(authorData.id)
-      } catch (err) {
-        return view.render('error.index', {
-          message: 'Esse autor não existe! :(',
-          back: 'authors',
-          err
-        })
-      }
+      author = await Author.find(authorData.id)
     } else {
       author = new Author()
     }
@@ -98,7 +98,7 @@ class AuthorController {
     return response.redirect('/authors')
   }
 
-  async destroy({params, session, response}) {
+  async destroy({ response, params, view }) {
     try {
       const author = await Author.findOrFail(params.id)
 
