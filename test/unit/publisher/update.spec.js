@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 const Publisher = use('App/Models/Publisher')
-const { test, trait } = use('Test/Suite')('Unitário -> Autor.editar')
+const { test, trait } = use('Test/Suite')('Unitário -> Editora.editar')
 
 trait('Test/Browser')
 trait('Test/ApiClient')

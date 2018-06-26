@@ -1,242 +1,148 @@
 ﻿'use strict'
 
+const Book = use('App/Models/Book')
 const Author = use('App/Models/Author')
-const { test, trait } = use('Test/Suite')('Unitário -> Autor.editar')
+const Publisher = use('App/Models/Publisher')
+const { test, trait, skip } = use('Test/Suite')('Unitário -> Livro.editar')
 
 trait('Test/Browser')
 trait('Test/ApiClient')
 trait('DatabaseTransactions')
 
-test('Deve informar se não existir autor cadastrado', async ({ assert, client }) => {
+test('Deve informar se não existir livro cadastrado', async ({ assert, client }) => {
   const id = 1
-  const response = await client.get(`/authors/edit/${id}`).end()
+  const response = await client.get(`/books/edit/${id}`).end()
 
   response.assertStatus(200)
-  assert.include(response.text, 'Esse autor não existe! :(')
+  assert.include(response.text, 'Esse livro não existe! :(')
 })
 
-test('Validação (Nome) | Deve retornar erro caso não seja informado nome', async ({ browser }) => {
+test('Validação (Título) | Deve retornar erro caso não seja informado título', async ({ browser }) => {
   const author = await Author.create({
     firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
+    lastname: 'Pellizzetti',
     birthday: '1994/05/16'
   })
 
-  const firstname = ''
+  const publisher = await Publisher.create({ name: 'John Books' })
 
-  const page = await browser.visit(`/authors/edit/${author.id}`)
+  const book = await Book.create({
+    title: 'CSS Tableless Table',
+    author_id: author.id,
+    publisher_id: publisher.id
+  })
+
+  const title = ''
+
+  const page = await browser.visit(`/books/edit/${book.id}`)
 
   await page
-    .clear('[name="firstname"]')
-    .type('[name="firstname"]', firstname)
-    .type('[name="lastname"]', author.lastname)
-    .type('[name="birthday"]', author.birthday)
+    .clear('[name="title"]')
+    .type('[name="title"]', title)
+    .select('[name="author_id"]', `${author.id}`)
+    .select('[name="publisher_id"]', `${publisher.id}`)
     .submitForm('form')
     .waitForNavigation()
 
-  await page.assertPath(`/authors/edit/${author.id}`)
+  await page.assertPath(`/books/edit/${book.id}`)
 
-  await page.assertValue('[name="firstname"]', author.firstname)
+  await page.assertValue('[name="title"]', book.title)
 
   await page.assertExists('span.err')
 })
 
-test('Validação (Nome) | Deve retornar erro caso o nome tenha menos que 3 caracteres', async ({ browser }) => {
+test('Validação (Autor) | Deve retornar erro caso não seja informado autor', async ({ browser }) => {
   const author = await Author.create({
     firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
+    lastname: 'Pellizzetti',
     birthday: '1994/05/16'
   })
 
-  const firstname = 'Gu'
+  const publisher = await Publisher.create({ name: 'John Books' })
 
-  const page = await browser.visit(`/authors/edit/${author.id}`)
+  const book = await Book.create({
+    title: 'CSS Tableless Table',
+    author_id: author.id,
+    publisher_id: publisher.id
+  })
+
+  const author_id = ''
+
+  const page = await browser.visit(`/books/edit/${book.id}`)
 
   await page
-    .clear('[name="firstname"]')
-    .type('[name="firstname"]', firstname)
-    .type('[name="lastname"]', author.lastname)
-    .type('[name="birthday"]', author.birthday)
+    .type('[name="title"]', book.title)
+    .select('[name="author_id"]', author_id)
+    .select('[name="publisher_id"]', `${publisher.id}`)
     .submitForm('form')
     .waitForNavigation()
 
-  await page.assertPath(`/authors/edit/${author.id}`)
+  await page.assertPath(`/books/edit/${book.id}`)
 
-  await page.assertValue('[name="firstname"]', author.firstname)
+  await page.assertValue('[name="author_id"]', `${book.author_id}`)
 
   await page.assertExists('span.err')
 })
 
-test('Validação (Nome) | Deve retornar erro caso o nome tenha mais que 25 caracteres', async ({ browser }) => {
+test('Validação (Editora) | Deve retornar erro caso não seja informado editora', async ({ browser }) => {
   const author = await Author.create({
     firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
+    lastname: 'Pellizzetti',
     birthday: '1994/05/16'
   })
 
-  const firstname = 'UmNomeExtremamenteGigantesco'
+  const publisher = await Publisher.create({ name: 'John Books' })
 
-  const page = await browser.visit(`/authors/edit/${author.id}`)
+  const book = await Book.create({
+    title: 'CSS Tableless Table',
+    author_id: author.id,
+    publisher_id: publisher.id
+  })
+
+  const publisher_id = ''
+
+  const page = await browser.visit(`/books/edit/${book.id}`)
 
   await page
-    .clear('[name="firstname"]')
-    .type('[name="firstname"]', firstname)
-    .type('[name="lastname"]', author.lastname)
-    .type('[name="birthday"]', author.birthday)
+    .type('[name="title"]', book.title)
+    .select('[name="author_id"]', `${author.id}`)
+    .select('[name="publisher_id"]', publisher_id)
     .submitForm('form')
     .waitForNavigation()
 
-  await page.assertPath(`/authors/edit/${author.id}`)
+  await page.assertPath(`/books/edit/${book.id}`)
 
-  await page.assertValue('[name="firstname"]', author.firstname)
+  await page.assertValue('[name="publisher_id"]', `${book.publisher_id}`)
 
   await page.assertExists('span.err')
 })
 
-test('Validação (Sobrenome) | Deve retornar erro caso não seja informado sobrenome', async ({ browser }) => {
+test('Deve editar os dados de livro', async ({ browser }) => {
   const author = await Author.create({
     firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
+    lastname: 'Pellizzetti',
     birthday: '1994/05/16'
   })
 
-  const lastname = ''
+  const publisher = await Publisher.create({ name: 'John Books' })
 
-  const page = await browser.visit(`/authors/edit/${author.id}`)
-
-  await page
-    .type('[name="firstname"]', author.firstname)
-    .clear('[name="lastname"]')
-    .type('[name="lastname"]', lastname)
-    .type('[name="birthday"]', author.birthday)
-    .submitForm('form')
-    .waitForNavigation()
-
-  await page.assertPath(`/authors/edit/${author.id}`)
-
-  await page.assertValue('[name="lastname"]', author.lastname)
-
-  await page.assertExists('span.err')
-})
-
-test('Validação (Sobrenome) | Deve retornar erro caso o sobrenome tenha menos que 3 caracteres', async ({ browser }) => {
-  const author = await Author.create({
-    firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
-    birthday: '1994/05/16'
+  const book = await Book.create({
+    title: 'CSS Tableless Tablr',
+    author_id: author.id,
+    publisher_id: publisher.id
   })
 
-  const lastname = 'Pe'
+  book.title = 'CSS Tableless Tablr'
 
-  const page = await browser.visit(`/authors/edit/${author.id}`)
+  const page = await browser.visit(`/books/edit/${book.id}`)
 
   await page
-    .type('[name="firstname"]', author.firstname)
-    .clear('[name="lastname"]')
-    .type('[name="lastname"]', lastname)
-    .type('[name="birthday"]', author.birthday)
+    .clear('[name="title"]')
+    .type('[name="title"]', book.title)
     .submitForm('form')
     .waitForNavigation()
 
-  await page.assertPath(`/authors/edit/${author.id}`)
+  await page.assertPath('/books')
 
-  await page.assertValue('[name="lastname"]', author.lastname)
-
-  await page.assertExists('span.err')
-})
-
-test('Validação (Sobrenome) | Deve retornar erro caso o sobrenome tenha mais que 25 caracteres', async ({ browser }) => {
-  const author = await Author.create({
-    firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
-    birthday: '1994/05/16'
-  })
-
-  const lastname = 'UmSobrenomeExtremamenteGigantesco'
-
-  const page = await browser.visit(`/authors/edit/${author.id}`)
-
-  await page
-    .type('[name="firstname"]', author.firstname)
-    .clear('[name="lastname"]')
-    .type('[name="lastname"]', lastname)
-    .type('[name="birthday"]', author.birthday)
-    .submitForm('form')
-    .waitForNavigation()
-
-  await page.assertPath(`/authors/edit/${author.id}`)
-
-  await page.assertValue('[name="lastname"]', author.lastname)
-
-  await page.assertExists('span.err')
-})
-
-test('Validação (Data de Nascimento) | Deve retornar erro caso não seja informado data de nascimento', async ({ browser }) => {
-  const author = await Author.create({
-    firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
-    birthday: '1994/05/16'
-  })
-
-  const birthday = '____/__/__'
-
-  const page = await browser.visit(`/authors/edit/${author.id}`)
-
-  await page
-    .type('[name="firstname"]', author.firstname)
-    .type('[name="lastname"]', author.lastname)
-    .clear('[name="birthday"]')
-    .type('[name="birthday"]', birthday)
-    .submitForm('form')
-    .waitForNavigation()
-
-  await page.assertPath(`/authors/edit/${author.id}`)
-
-  await page.assertExists('span.err')
-})
-
-test('Validação (Data de Nascimento) | Deve retornar erro caso a data de nascimento não esteja no formato requerido', async ({ browser }) => {
-  const author = await Author.create({
-    firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
-    birthday: '1994/05/16'
-  })
-
-  const birthday = '1605/1_/__'
-
-  const page = await browser.visit(`/authors/edit/${author.id}`)
-
-  await page
-    .type('[name="firstname"]', author.firstname)
-    .type('[name="lastname"]', author.lastname)
-    .clear('[name="birthday"]')
-    .type('[name="birthday"]', birthday)
-    .submitForm('form')
-    .waitForNavigation()
-
-  await page.assertPath(`/authors/edit/${author.id}`)
-
-  await page.assertExists('span.err')
-})
-
-test('Deve editar os dados de autor', async ({ browser }) => {
-  const author = await Author.create({
-    firstname: 'Guilherme',
-    lastname: 'Pellizzeti',
-    birthday: '1994/05/16'
-  })
-
-  author.lastname = 'Pellizzetti'
-
-  const page = await browser.visit(`/authors/edit/${author.id}`)
-
-  await page
-    .clear('[name="lastname"]')
-    .type('[name="lastname"]', author.lastname)
-    .submitForm('form')
-    .waitForNavigation()
-
-  await page.assertPath('/authors')
-
-  await page.assertHas('Guilherme Pellizzetti')
+  await page.assertHas('CSS Tableless Tablr')
 })
